@@ -5,4 +5,4 @@ var country = document.querySelector("#exampleInputCountry");
 var email = document.querySelector("#exampleInputEmail");
 var password = document.querySelector("#exampleInputPassword");
 var file = document.querySelector("#exampleInputFile");
-var admin = document.querySelector("#examplecheckboxadmin");
+var admin = document.querySelector("#exampleInputAdmin");
