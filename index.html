@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Usuários - Hcode Treinamentos</title>
+    <title>Usuários</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
@@ -168,7 +168,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-green">
                                     <div class="inner">
-                                        <h3>44</h3>
+                                        <h3 id="number-users">0</h3>
 
                                         <p>Novos Usuários</p>
                                     </div>
@@ -182,7 +182,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-yellow">
                                     <div class="inner">
-                                        <h3>15</h3>
+                                        <h3 id="number-user-admin">0</h3>
 
                                         <p>Administradores</p>
                                     </div>
@@ -519,6 +519,7 @@
 
 </html>
 </body>
+<script src="classes/Utils.js"></script>
 <script src="models/Users.js"></script>
 <script src="controllers/UserController.js"></script>
 <script src="dist/js/script.js"></script>
