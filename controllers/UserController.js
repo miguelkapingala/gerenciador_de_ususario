@@ -1,11 +1,34 @@
 class UserController {
 
-    constructor(formId, tableId) {
+    constructor(formIdCreate, formIdeUpdate, tableId) {
 
-        this.formEl = document.getElementById(formId);
+        this.formEl = document.getElementById(formIdCreate);
+        this.formUpdateEl = document.getElementById(formIdeUpdate);
         this.tableEl = document.getElementById(tableId);
-        this.onSubmit();
 
+        this.onSubmit();
+        this.onEdit();
+
+    }
+
+    onEdit() {
+        document.querySelector('#box-user-update .btn-cancel').addEventListener('click', e => {
+            this.showPanelCreate();
+        });
+
+        this.formUpdateEl.addEventListener("submit", event => {
+
+            event.preventDefault();
+
+            let btn = this.formUpdateEl.querySelector("[type=submit]");
+
+            btn.desabled = true;
+
+            let values = this.getValues(this.formUpdateEl);
+
+            console.log(values);
+
+        });
 
     }
 
@@ -18,7 +41,7 @@ class UserController {
 
             btn.desabled = true;
 
-            let values = this.getValues();
+            let values = this.getValues(this.formEl);
 
             if (!values) return false;
 
@@ -90,7 +113,7 @@ class UserController {
 
     }
 
-    getValues() {
+    getValues(formEl) {
 
         let user = {};
         let isValid = true;
@@ -161,10 +184,38 @@ class UserController {
 
         tr.querySelector(".btn-edit").addEventListener("click", e => {
 
-            document.querySelector("#box-user-create").style.display = "none";
-            document.querySelector("#box-user-update").style.display = "block";
+            let json = JSON.parse(tr.dataset.user);
+
+            let form = document.querySelector('#form-user-update');
 
 
+            for (let name in json) {
+
+                let field = form.querySelector("[name=" + name.replace("_", "") + "]");
+
+                if (field) {
+
+                    switch (field.type) {
+                        case 'file':
+                            continue;
+                            break;
+                        case 'radio':
+                            field = form.querySelector("[name=" + name.replace("_", "") + "][value=" + json[name] + "]");
+                            field.checked = true;
+                            break;
+                        case 'checkbox':
+                            field.checked = json[name];
+                            break;
+                        default:
+                            field.value = json[name];
+                    }
+
+                }
+
+            }
+
+
+            this.showPanelUpdate();
         })
 
         this.tableEl.appendChild(tr);
@@ -172,6 +223,20 @@ class UserController {
         this.updateCount();
     }
 
+
+    showPanelCreate() {
+        document.querySelector("#box-user-create").style.display = "block";
+        document.querySelector("#box-user-update").style.display = "none";
+
+
+    }
+
+    showPanelUpdate() {
+
+        document.querySelector("#box-user-create").style.display = "none";
+        document.querySelector("#box-user-update").style.display = "block";
+
+    }
 
     updateCount() {
 
